@@ -13,22 +13,39 @@ class Composition(object):
             self._indexStack.clear()
             while(j<len1):
                 if(sum+arr[j]<target):
-                    seq.append(arr[j])
-                    self._indexStack.append(j)
-                    sum+=arr[j]
+                    if(j==len1-1):
+                        if(len(seq)>0):
+                            j=self._indexStack.pop()
+                            seq.pop()
+                            sum-=arr[j]
+                    else:
+                        seq.append(arr[j])
+                        self._indexStack.append(j)
+                        sum+=arr[j]
                 elif(sum+arr[j]==target):
                     seq.append(arr[j])
-                    self._result.append(seq)
+                    self._result.append(seq[:])
                     seq.pop()
+                    if(j==len1-1):
+                        if(len(seq)>0):
+                            j=self._indexStack.pop()
+                            seq.pop()
+                            sum-=arr[j]
                 else:
-                    lastIndex=self._indexStack.pop()
-                    sum-=arr[lastIndex]
-                    j=lastIndex
+                    # print(seq,arr[j])
+                    j=self._indexStack.pop()
+                    seq.pop()
+                    sum-=arr[j]
+                    
+                if(len(seq)==0):
+                    # print("---"+str(startIndex)+"-----")
+                    break
+                # print("----",self._result)
                 j+=1
 
         print(self._result)
 
 
-arr=[1,2,2,3,4,5]
+arr=[1,6,2,3,4,5]
 comp=Composition()
-comp.compositionSum(arr,7)
+comp.compositionSum(arr,12)
