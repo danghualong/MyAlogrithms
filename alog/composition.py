@@ -1,4 +1,22 @@
 class Composition(object):
+    def combinationSum(self,arr,target):
+        arr.sort()
+        seq=[]
+        result=[]
+        i=0
+        self.combine(arr,target,i,seq,result)
+        return result
+    
+    def combine(self,arr,target,start,seq,result):
+        if(target==0):
+            self.addSeq(result,seq)
+            return
+        for i in range(start,len(arr)):
+            if(arr[i]<=target):
+                seq.append(arr[i])
+                self.combine(arr,target-arr[i],i,seq,result)
+                seq.pop()
+
     def combinationSum2(self,arr,target):
         arr.sort()
         len1=len(arr)
@@ -49,4 +67,6 @@ class Composition(object):
 
 arr=[4,4,2,1,4,2,2,1,3]
 comp=Composition()
-print(comp.combinationSum2(arr,6))
+# print(comp.combinationSum2(arr,6))
+arr=[4,4,2,1,4,2,2,1,3]
+print(comp.combinationSum(arr,6))
