@@ -1,51 +1,52 @@
 class Composition(object):
-    def __init__(self):
-        self._result=[]
-        self._indexStack=[]
-
-    def compositionSum(self,arr,target):
+    def combinationSum2(self,arr,target):
         arr.sort()
         len1=len(arr)
-        for startIndex in range(len1):
-            j=startIndex
-            sum=0
-            seq=[]
-            self._indexStack.clear()
-            while(j<len1):
-                if(sum+arr[j]<target):
-                    if(j==len1-1):
-                        if(len(seq)>0):
-                            j=self._indexStack.pop()
-                            seq.pop()
-                            sum-=arr[j]
-                    else:
-                        seq.append(arr[j])
-                        self._indexStack.append(j)
-                        sum+=arr[j]
-                elif(sum+arr[j]==target):
-                    seq.append(arr[j])
-                    self._result.append(seq[:])
-                    seq.pop()
-                    if(j==len1-1):
-                        if(len(seq)>0):
-                            j=self._indexStack.pop()
-                            seq.pop()
-                            sum-=arr[j]
-                else:
-                    # print(seq,arr[j])
-                    j=self._indexStack.pop()
-                    seq.pop()
-                    sum-=arr[j]
-                    
-                if(len(seq)==0):
-                    # print("---"+str(startIndex)+"-----")
+        result=[]
+        indexStack=[]
+        seq=[]
+        j=0
+        sum=0
+        canback=False
+        while(j<len1):
+            if(sum+arr[j]<=target):
+                seq.append(arr[j])
+                indexStack.append(j)
+                sum+=arr[j]
+                canback=(j==len1-1)
+                if(sum==target):
+                    self.addSeq(result,seq)
+                    canback=True
+            else:
+                canback=True
+
+            while(canback and len(seq)>0):
+                #如果是最后一个元素，
+                j=indexStack.pop()
+                seq.pop()
+                sum-=arr[j]
+                if(j<len1-1): 
                     break
-                # print("----",self._result)
-                j+=1
+            j+=1
+        return result
+    
+    @staticmethod
+    def addSeq(result,seq):
+        for tmpSeq in result:
+            if(Composition.isSame(tmpSeq,seq)):
+                return
+        result.append(seq[:])
 
-        print(self._result)
+    @staticmethod       
+    def isSame(tmpSeq,seq):
+        if(len(tmpSeq)!=len(seq)):
+            return False
+        for i in range(len(seq)):
+            if(tmpSeq[i]!=seq[i]):
+                return False
+        return True       
 
 
-arr=[1,6,2,3,4,5]
+arr=[4,4,2,1,4,2,2,1,3]
 comp=Composition()
-comp.compositionSum(arr,12)
+print(comp.combinationSum2(arr,6))
