@@ -1,5 +1,5 @@
 class Solution(object):
-    def findMinInteger(self,arr):
+    def firstMissingPositive(self,arr):
         if(arr==None):
             return
         i=0
@@ -17,5 +17,5 @@ class Solution(object):
         return len(arr)+1
     
 s=Solution()
-missing=s.findMinInteger([3,5,2,1])
+missing=s.firstMissingPositive([3,5,2,1])
 print(missing)
