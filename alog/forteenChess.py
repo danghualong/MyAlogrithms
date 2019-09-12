@@ -1,3 +1,5 @@
+import logging
+
 class ForteenChess(object):
     RULES=[(1,2,4),(1,3,6),(2,4,7),(2,5,9),
     (3,5,8),(3,6,10),(4,5,6),(4,7,11),
@@ -12,54 +14,46 @@ class ForteenChess(object):
     (8,5,3),(7,4,2),(6,3,1),(6,5,4),(4,2,1),(15,14,13),(15,10,6)]
 
     def __init__(self):
+        self._paths=[]
         self.board=[0]
         for i in range(14):
             self.board.append(1)
         self.availablePaths=[(4,2,1),(6,3,1)]
+        logging.basicConfig(filename="result.log", filemode="w",level=logging.DEBUG)
         self._count=0
-    
-    def getBoard(self):
-        return self.board
     def getAvailablePaths(self):
         return self.availablePaths
     @property
     def count(self):
         return self._count
+    @property
+    def paths(self):
+        return self._paths
 
-    def optimize(self,paths,board,availablePaths):
-        # print(board)
-        if(board.count(1)<2):
+    def optimize(self,results,availablePaths):
+        if(self.board.count(1)<2):
             self._count+=1
-            print("***************************")
-            print(paths)
-            return
-
-        for nextPath in availablePaths:
-            # print(nextPath)
-            board[nextPath[0]-1]=0
-            board[nextPath[1]-1]=0
-            board[nextPath[2]-1]=1
-            paths.append(nextPath)
-            print(paths,board)
-            nextPaths=[]
-            for tmp in ForteenChess.RULES:
-                if ((board[tmp[0]-1]==1) and (board[tmp[1]-1]==1) and (board[tmp[2]-1]==0)):
-                    nextPaths.append(tmp)
-            self.optimize(paths,board,nextPaths)
-        popPath=paths.pop()
-        board[popPath[0]-1]=1
-        board[popPath[1]-1]=1
-        board[popPath[2]-1]=0
-        print("exit....")
-        
-    
-
-
-        
+            self._paths.append(results[:])
+            logging.debug(results)
+        else:
+            for nextPath in availablePaths:
+                self.board[nextPath[0]-1]=0
+                self.board[nextPath[1]-1]=0
+                self.board[nextPath[2]-1]=1
+                results.append(nextPath)
+                successivePaths=[]
+                for tmp in ForteenChess.RULES:
+                    if ((self.board[tmp[0]-1]==1) and (self.board[tmp[1]-1]==1) and (self.board[tmp[2]-1]==0)):
+                        successivePaths.append(tmp)
+                self.optimize(results,successivePaths)
+        if(len(results)>0):
+            popPath=results.pop()
+            self.board[popPath[0]-1]=1
+            self.board[popPath[1]-1]=1
+            self.board[popPath[2]-1]=0
+  
 
 chess=ForteenChess()
-board=chess.getBoard()
 availablePaths=chess.getAvailablePaths()
-chess.optimize([],board,availablePaths)
-
+chess.optimize([],availablePaths)
 print(chess.count)
