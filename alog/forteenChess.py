@@ -41,10 +41,7 @@ class ForteenChess(object):
                 self.board[nextPath[1]-1]=0
                 self.board[nextPath[2]-1]=1
                 results.append(nextPath)
-                successivePaths=[]
-                for tmp in ForteenChess.RULES:
-                    if ((self.board[tmp[0]-1]==1) and (self.board[tmp[1]-1]==1) and (self.board[tmp[2]-1]==0)):
-                        successivePaths.append(tmp)
+                successivePaths=[tmp for tmp in ForteenChess.RULES if ((self.board[tmp[0]-1]==1) and (self.board[tmp[1]-1]==1) and (self.board[tmp[2]-1]==0))]
                 self.optimize(results,successivePaths)
         if(len(results)>0):
             popPath=results.pop()
