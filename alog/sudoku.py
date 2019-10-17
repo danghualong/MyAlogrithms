@@ -31,6 +31,21 @@ def solvesudoku(board):
     for i in range(9):
         print(board[i*9:i*9+9])
 
+def solve(board,index):
+    if(index>=81):
+        print(board)
+    else:
+        if(board[index]==0):
+            for i in range(1,10):
+                row=int(index/9)
+                col=int(index%9)
+                if(isValid(board,row,col,i)):
+                    board[index]=i
+                    solve(board,index+1)
+                    board[index]=0
+        else:
+            solve(board,index+1)
+
 def switchNext(i,j):
     j+=1
     if(j==9):
@@ -87,7 +102,7 @@ mat=[0,0,0,0,5,7,0,8,0,
 0,0,0,0,0,0,0,0,5,
 0,9,0,3,1,0,0,0,0]
 
-mat=[0,0,5,3,0,0,0,0,7,
+mat1=[0,0,5,3,0,0,0,0,7,
 0,0,0,0,0,8,0,0,6,
 6,8,0,4,0,0,9,1,0,
 0,0,0,0,0,7,0,0,0,
@@ -98,6 +113,8 @@ mat=[0,0,5,3,0,0,0,0,7,
 0,9,0,0,1,0,0,7,0]
 
 solvesudoku(mat)
+
+solve(mat,0)
 
 
 
