@@ -1,16 +1,16 @@
 import math
-def isPrime(n):
-    if n<=1:
-        return False
-    elif n==2:
-        return True
-    else:
-        k=int(math.sqrt(n))
-        print(k)
-        for i in range(2,k+1):
-            if(n%i==0):
-                return False
-        return True
+import numpy as np
 
 
-primes=[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101]
+def findMax(arr,nFrom,nEnd):
+    if(nFrom>=nEnd):
+        return arr[nFrom]
+    mid=int((nFrom+nEnd)/2)
+    max1=findMax(arr,nFrom,mid)
+    max2=findMax(arr,mid+1,nEnd)
+    return max1 if max1>max2 else max2
+
+
+arr=[3,2,4,5,7,2,8,4,9,1,0]
+m=findMax(arr,0,len(arr)-1)
+print(m)
