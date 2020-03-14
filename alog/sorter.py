@@ -21,20 +21,24 @@ class QuickSortPolicy(SortPolicy):
         self._quickSort(arr,0,len(arr)-1)
 
     def _quickSort(self,arr,f,t):
-        if(f<t):
-            cmp=arr[f]
-            pos=f
-            for i in range(f+1,t+1):
-                if(arr[i]<cmp):
-                    pos+=1
-                    self.swap(arr,i,pos)
-            self.swap(arr,f,pos)
-            self._quickSort(arr,f,pos-1)
-            self._quickSort(arr,pos+1,t)
+        if(f>=t):
+            return
+        mid=self._getMid(arr,f,t)
+        self._quickSort(arr,f,mid-1)
+        self._quickSort(arr,mid+1,t)
+            
 
+    def _getMid(self,arr,f,t):
+        pos=f
+        for i in range(f+1,t+1):
+            if(arr[i]<arr[f]):
+                pos+=1
+                self.swap(arr,i,pos)
+        self.swap(arr,f,pos)
+        return pos
 
 s=Sorter()
-policy=BubbleSortPolicy()
+policy=QuickSortPolicy()
 arr=[9,5,2,3,4,6,8,1]
 s.sort(arr,policy)
 print(arr)
