@@ -1,3 +1,4 @@
+# 数独求解方法
 def solvesudoku(board):
     stack=[]
     lastData=0

@@ -1,3 +1,5 @@
+# 递归和循环算法实现组合算法
+
 class Composition(object):
     #利用数组中的数，每个值可以使用多次，只要加和等于目标值即可
     def combinationSum(self,arr,target):
@@ -7,7 +9,7 @@ class Composition(object):
         i=0
         self.combine(arr,target,i,seq,result)
         return result
-    
+
     def combine(self,arr,target,start,seq,result):
         if(target==0):
             self.addSeq(result,seq)
@@ -15,7 +17,8 @@ class Composition(object):
         for i in range(start,len(arr)):
             if(arr[i]<=target):
                 seq.append(arr[i])
-                self.combine(arr,target-arr[i],i,seq,result)
+                # 减而治之的递归算法
+                self.combine(arr,target-arr[i],i+1,seq,result)
                 seq.pop()
 
 
@@ -73,7 +76,6 @@ class Composition(object):
 
     def backtrack(self,arr,target,seq,index):
         if(target==0):
-            print(seq)
             return
         if(index>=len(arr)):
             return
@@ -88,8 +90,8 @@ class Composition(object):
             self.backtrack(arr,target,seq,index+1)
 
 
-arr=[4,4,2,1,4,2,2,1,3]
+arr=[4,-4,2,1,4,-2,1,3]
 comp=Composition()
 print(comp.combinationSum(arr,6))
-comp.compose(arr,6)
-print(comp.combinationSum2(arr,6))
+# comp.compose(arr,6)
+# print(comp.combinationSum2(arr,6))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

@@ -43,6 +43,7 @@ class ForteenChess(object):
                 results.append(nextPath)
                 successivePaths=[tmp for tmp in ForteenChess.RULES if ((self.board[tmp[0]-1]==1) and (self.board[tmp[1]-1]==1) and (self.board[tmp[2]-1]==0))]
                 self.optimize(results,successivePaths)
+        # 不能继续走棋时，回溯到上一步的棋盘状态
         if(len(results)>0):
             popPath=results.pop()
             self.board[popPath[0]-1]=1
