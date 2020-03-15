@@ -1,3 +1,4 @@
+# 递归实现汉诺塔
 def move(n,f,m,t):
     if(n==1):
        print("{0}:{1}-->{2}".format(n,f,t))

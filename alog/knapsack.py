@@ -1,6 +1,5 @@
 #背包问题(回溯法)
 
-
 class Knapsack(object):
     def __init__(self,ws,cs,target):
         self.n=len(ws)

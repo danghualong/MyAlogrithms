@@ -1,6 +1,5 @@
 
 #最小生成树算法(MST)
-
 class Solution(object):
     def __init__(self,vs,edges):
         self.vs=vs

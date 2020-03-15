@@ -1,4 +1,6 @@
+# 递归实现排列算法
 class Solution(object):
+    # 全排列算法
     def permute(self, nums):
         """
         :type nums: List[int]
@@ -17,7 +19,7 @@ class Solution(object):
                     item.insert(0,nums[i])
                     result.append(item)
             return result
-
+    #全排列去重
     def permuteUnique(self, nums):
         """
         :type nums: List[int]
@@ -31,6 +33,7 @@ class Solution(object):
             result=[]
             existdNums=[]
             for i in range(len(nums)):
+                # 元素如果参与排列,则不参与排列
                 if(nums[i] in existdNums):
                     continue
                 existdNums.append(nums[i])
@@ -45,7 +48,6 @@ class Solution(object):
 o=Solution()
 # items=o.permute([1,2,3,4])
 # print(items)
-
 
 items2=o.permuteUnique([1,2,1,4])
 print(items2)
