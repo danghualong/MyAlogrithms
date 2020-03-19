@@ -1,6 +1,6 @@
-# ä»é›†åˆä¸­æ‰¾å‡ºæ‰€æœ‰æ»¡è¶³2ä¸ªæ•°çš„å’Œä¸ºæŒ‡å®šç›®æ ‡å€¼
+# ´Ó¼¯ºÏÖĞÕÒ³öËùÓĞÂú×ã2¸öÊıµÄºÍÎªÖ¸¶¨Ä¿±êÖµ
 class Solution(object):
-    # ä»é›†åˆä¸­æ‰¾å‡ºä¸€ç»„æ»¡è¶³2ä¸ªæ•°çš„å’Œç­‰äºç›®æ ‡å€¼
+    # ´Ó¼¯ºÏÖĞÕÒ³öÒ»×éÂú×ã2¸öÊıµÄºÍµÈÓÚÄ¿±êÖµ
     def find_one(self,nums,target):
         hashNums={}
         for i,num in enumerate(nums):
@@ -9,7 +9,7 @@ class Solution(object):
                 return [hashNums[nextNum],i]
             hashNums[num]=i
         return None
-    # ä»é›†åˆä¸­æ‰¾å‡ºæ‰€æœ‰æ»¡è¶³2ä¸ªæ•°çš„å’Œç­‰äºç›®æ ‡å€¼
+    # ´Ó¼¯ºÏÖĞÕÒ³öËùÓĞÂú×ã2¸öÊıµÄºÍµÈÓÚÄ¿±êÖµ
     def find_composition(self,nums,target):
         result=[]
         hashNums={}
@@ -30,4 +30,5 @@ class Solution(object):
 
 s=Solution()
 result=s.find_composition([2,2,3,4,5,7,7,8,9,10,1],4)
+print(result)
 print(result)
