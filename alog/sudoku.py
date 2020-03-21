@@ -1,4 +1,4 @@
-# 数独求解方法
+# 迭代求解数独方法
 def solvesudoku(board):
     stack=[]
     lastData=0
@@ -31,7 +31,7 @@ def solvesudoku(board):
             
     for i in range(9):
         print(board[i*9:i*9+9])
-
+# 递归求解数独
 def solve(board,index):
     if(index>=81):
         print(board)

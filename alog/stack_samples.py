@@ -47,7 +47,7 @@ def transform(exp):
            #空栈直接存入
            if(len(opds)==0):
                opds.append(i)
-           #当站内优先级小于待入栈优先级
+           #当栈内优先级小于待入栈优先级
            elif p[opds[len(opds)-1]][1]<p[i][0]:
                opds.append(i)
            else:
@@ -105,10 +105,10 @@ def formatPrint(exp,sep=''):
 if __name__=="__main__":
     exp=['6','*','(','3','+','5',')','-','2','/','4','+','10']
     str1=formatPrint(exp)
-    print str1
+    print(str1)
     isvalid=isValid(exp)
     if isvalid:
         result=transform(exp) 
-        print formatPrint(result,sep=' ') 
+        print(formatPrint(result,sep=' ')) 
         str1=str1+"="+str("%.1f" %calculate(result))
-        print str1            
+        print(str1)            

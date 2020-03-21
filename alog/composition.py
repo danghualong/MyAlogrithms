@@ -21,7 +21,6 @@ class Composition(object):
                 self.combine(arr,target-arr[i],i+1,seq,result)
                 seq.pop()
 
-
     @staticmethod
     def addSeq(result,seq):
         # for tmpSeq in result:
