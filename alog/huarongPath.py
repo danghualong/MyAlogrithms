@@ -30,6 +30,7 @@ class HuaRongPath(object):
             curNode=q.pop()
             childNodeNames=self.getNextNodes(curNode)
             for tmpName in childNodeNames:
+                # 剪枝处理
                 if(tmpName not in self.nodes):
                     tmpNode=Node(tmpName)
                     curNode.adjacent.append(tmpNode)
@@ -37,11 +38,9 @@ class HuaRongPath(object):
                     tmpNode.level=curNode.level+1
                     self.nodes[tmpName]=tmpNode
                     q.insert(0,tmpNode)
-                else:
-                    tmpNode=self.nodes[tmpName]
-                    if(tmpNode.level>curNode.level+1):
-                        tmpNode.parent=curNode
-                        tmpNode.level=curNode.level+1
+                    # 发现终节点结束操作
+                    if(tmpName==self.stopNodeName):
+                        return
 
     def getPaths(self):
         if(self.stopNodeName not in self.nodes):
@@ -91,7 +90,7 @@ def printPaths(paths):
             print(strPath[i*size:(i+1)*size])
 
 if __name__=='__main__':
-    obj=HuaRongPath('012345678','123456780')
+    obj=HuaRongPath('123405678','123456780')
     obj.buildTree()
     paths=obj.getPaths()
     if(paths!=None):

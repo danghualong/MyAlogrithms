@@ -1,5 +1,5 @@
 
-#过河问题
+#递归求解过河问题
 class Solution(object):
     def __init__(self):
         self.paths=[]
