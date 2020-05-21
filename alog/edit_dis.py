@@ -18,9 +18,9 @@ def distance_sub(s1,i,s2,j):
 def reccursive_distance(s1,s2):
     return distance_sub(s1,len(s1)-1,s2,len(s2)-1)
 # 动态规划求解
-def dp_distance(s1,s2):
-    row=len(s1)+1
-    col=len(s2)+1
+def dp_distance(word1,word2):
+    row=len(word1)+1
+    col=len(word2)+1
     d=np.zeros((row,col))
     for i in range(1,row):
         d[i,0]=i
@@ -28,20 +28,20 @@ def dp_distance(s1,s2):
         d[0,j]=j
     for i in range(1,row):
         for j in range(1,col):
-            if(s1[i-1]==s2[j-1]):
+            if(word1[i-1]==word2[j-1]):
                 d[i,j]=d[i-1,j-1]
             else:
                 d1=d[i,j-1]+1 #增加一个字符
                 d2=d[i-1,j]+1 #删除一个字符
                 d3=d[i-1,j-1]+1 #修改一个字符
                 d[i,j]=min(d1,d2,d3)
-    print(d[1:,1:])
+        return (d[1:,1:])
 
 
 
     
-s1='rap'
-s2='apple'
+s1='horse'
+s2='ros'
 print(reccursive_distance(s1,s2))
 
-dp_distance(s1,s2)
+print(dp_distance(s1,s2))
