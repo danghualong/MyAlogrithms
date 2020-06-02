@@ -1,5 +1,7 @@
 # 递归实现排列算法
 class Solution(object):
+    def __init__(self):
+        self.result=[]
     # 全排列算法
     def permute(self, nums):
         """
@@ -44,11 +46,29 @@ class Solution(object):
                     result.append(item)
             return result
 
+    def permute2(self,nums):
+        if(nums==None):
+            return None
+        self.backtrack('',nums,0)
+        return self.result
+
+    def backtrack(self,item,nums,i):
+        if(i==len(nums)):
+            self.result.append(item)
+        else:
+            for t in range(len(item)+1):
+                self.backtrack(item[:t]+str(nums[i])+item[t:],nums,i+1)
+
 
 o=Solution()
-# items=o.permute([1,2,3,4])
-# print(items)
+items=o.permute([1,2,3,4])
+print(items)
 
+print("\n")
 items2=o.permuteUnique([1,2,1,4])
 print(items2)
+
+print("\n")
+items=o.permute2([1,2,3,4])
+print(items)
             
