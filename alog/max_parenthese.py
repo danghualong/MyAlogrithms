@@ -15,7 +15,20 @@ class Solution(object):
         root=MyNode("")
         result=[]
         self.createNode(root,count,result)
-        print(result)
+        return result
+    
+    def getMaxP_DP(self,count):
+        result=[[] for i in range(count+1)]
+        result[0]=['']
+        for i in range(1,count+1):
+            for j in range(i):
+                tmpArr1=result[j]
+                tmpArr2=result[i-j-1]
+                for item1 in tmpArr1:
+                    for item2 in tmpArr2:
+                        result[i].append('('+item1+')'+item2)
+        return result[count]
+
 
     def createNode(self,parent,count,result):
         if(parent!=None):
@@ -36,4 +49,12 @@ class Solution(object):
 
 
 obj=Solution()
-obj.getMaxP(10)       
+n=6
+print("动态规划算法：")
+result=obj.getMaxP_DP(n)  
+print(len(result))
+print(result)
+print("DFS：")
+result=obj.getMaxP(n)  
+print(len(result))
+print(result)  
