@@ -1,43 +1,42 @@
 class Node(object):
-    def __init__(self,key,size):
+    def __init__(self,key):
         self.next=None
         self.prev=None
         self.key=key
-        self.size=size
-
+# 并查集类
 class MergeFindSet(object):
-    def __init__(self):
+    def __init__(self,items):
         self.dict={}
-        
-    def merge(self,relatives):
+        if(items!=None):
+            for item in items:
+                if(item not in self.dict):
+                    self.dict[item]=Node(item)  
+    def union(self,relatives):
         if(relatives==None):
             return
-        curTail=None
         for item in relatives:
             if(item not in self.dict):
-                self.dict[item]=Node(item)
+                return False
+        item0=relatives[0]
+        curTail=self._getTail(self.dict[item0])
+        for i in range(1,len(relatives)):
+            item=relatives[i]
+            if(self.isSameSet(item0,item)):
+                continue
             curNode=self.dict[item]
-            if(curTail==None):
-                curTail=self._getTail(curNode)
-            else:
-                curHeader=self._getHead(curNode)
-                curTail.next=curHeader
-                curHeader.prev=curTail
-                curTail=self._getTail(curTail)
+            curHeader=self._getHead(curNode)
+            curTail.next=curHeader
+            curHeader.prev=curTail
+            curTail=self._getTail(curHeader)
 
-    def isSameSet(self,items):
-        if(items==None):
+    def isSameSet(self,a,b):
+        if(a==None or b==None):
             return False
-        if(items[0] not in self.dict):
+        if(a not in self.dict or b not in self.dict):
             return False
-        header=self._getHead(self.dict[items[0]])
-        for i in range(1,len(items)):
-            if(items[i] not in self.dict):
-                return False
-            tmpHeader=self._getHead(self.dict[items[i]])
-            if(header!=tmpHeader):
-                return False
-        return True
+        headerA=self._getHead(self.dict[a])
+        headerB=self._getHead(self.dict[b])
+        return headerA==headerB
 
     def _getTail(self,node):
         if(node==None):
@@ -71,16 +70,42 @@ class MergeFindSet(object):
             str+=(node.key+"-->")
             node=node.next
         print(str)
-        
 
-obj=MergeFindSet()
-obj.merge(['Jim','Jimmy'])
-obj.merge(['LiLei','WangJun'])
-obj.merge(['WangJun','Jimmy'])
-obj.merge(['LiMei','LiYing'])
-obj.merge(['LiuYing','XiaoCui'])
-obj.merge(['XiaoCui','XiangXiu'])
-obj.merge(['Dajiao'])
-obj.merge(['LiuYing','LiYing'])
-print(obj.getSetSize())
+# 利用并查集查找变量赋值是否有冲突
+class Solution(object):
+    def equationsPossible(self, equations):
+        if(equations==None or len(equations)<=0):
+            return True
+        n=len(equations)
+        items=[None for i in range(n)]
+        start=0
+        stop=n-1
+        letters=set()
+        for item in equations:
+            if('==' in item):
+                items[start]=item
+                arr=item.split('==')
+                letters.update(arr)
+                start+=1
+            else:
+                items[stop]=item
+                arr=item.split('!=')
+                letters.update(arr)
+                stop-=1
+        obj=MergeFindSet(letters)
+        for item in items:
+            if('==' in item):
+                arr=item.split('==')
+                obj.union(arr)
+            else:
+                arr=item.split('!=')
+                if(obj.isSameSet(arr[0],arr[1])):
+                    return False
+        return True
+
+
+obj=Solution()
+result=obj.equationsPossible(["c==c","b==d","x!=z"])
+print(result)
+
 
