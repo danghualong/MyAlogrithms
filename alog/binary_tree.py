@@ -1,5 +1,3 @@
-import  matplotlib.pyplot as plt
-from matplotlib.patches import Circle
 
 class TreeNode(object):
     def __init__(self, x):
@@ -15,6 +13,20 @@ class BinaryTree(object):
         root=TreeNode(nums[0])
         self._createNode(root,0,nums)
         return root
+
+    def createBalanceTree(self,nums):
+        if(nums==None or len(nums)==0):
+            return None
+        root=self.createBalanceNode(nums,0,len(nums)-1)
+        return root
+    def createBalanceNode(self,nums,startIndex,endIndex):
+        if(startIndex>endIndex):
+            return None
+        mid=(startIndex+endIndex)//2
+        node=TreeNode(nums[mid])
+        node.left=self.createBalanceNode(nums,startIndex,mid-1)
+        node.right=self.createBalanceNode(nums,mid+1,endIndex)
+        return node
 
     def _createNode(self,parent,index,nums):
         if(parent==None):
@@ -45,3 +57,7 @@ class BinaryTree(object):
         self._printNode(node.left,level+1)
         self._printNode(node.right,level+1)
 
+if __name__ == "__main__":
+    tree=BinaryTree()
+    root=tree.createBalanceTree([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+    tree.printTree(root)
