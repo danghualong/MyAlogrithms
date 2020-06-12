@@ -1,4 +1,4 @@
-
+# 多项式求和
 def calc(cs,num):
     t=cs[0]
     for i in range(1,len(cs)):

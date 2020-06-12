@@ -34,7 +34,7 @@ class Solution(object):
         if(root==None):
             return True
         return self._isChildSymmetric(root.left,root.right)
-
+    
     def _isChildSymmetric(self,leftNode,rightNode):
         if(leftNode==None and rightNode==None):
             return True
