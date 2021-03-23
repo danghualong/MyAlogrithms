@@ -8,6 +8,8 @@ verify_ssl = false
 [packages]
 numpy = "*"
 matplotlib = "*"
+aiostream = "*"
+requests = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
